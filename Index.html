@@ -4,75 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Insider ET - $DOGS to Birr Price Checker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #14BDE6;
-            color: white;
-            text-align: center;
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 5px;
-        }
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        input, button {
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 1.2em;
-            border-radius: 5px;
-            border: none;
-            outline: none;
-        }
-        input {
-            width: 300px;
-        }
-        button {
-            background-color: black;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #333;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: red;
-            background-color: white;
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        #footer {
-            margin-top: 40px;
-            font-size: 1.2em;
-        }
-        #footer a {
-            color: white;
-            text-decoration: underline;
-        }
-        #footer .join-button {
-            background-color: white;
-            color: #14BDE6;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        #footer .join-button:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
     <h1>Crypto Insider ET</h1>
@@ -89,52 +21,6 @@
         <a href="https://t.me/AirdropInsiderET" class="join-button" target="_blank">Join Our Channel</a>
     </div>
 
-    <script>
-        document.getElementById('cryptoForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const cryptoAmount = parseFloat(document.getElementById('cryptoAmount').value);
-            
-            if (isNaN(cryptoAmount) || cryptoAmount < 8000 || cryptoAmount > 300000) {
-                document.getElementById('result').innerText = 'Please enter an amount between 8000 and 300000 $DOGS.';
-                return;
-            }
-
-            fetch('https://api.binance.com/api/v3/ticker/price?symbol=DOGSUSDT')
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    const dogsToUsdtRate = parseFloat(data.price);
-                    const usdtToBirrRate = 110; // 1 USDT = 110 Birr
-
-                    // Determine the commission
-                    let commission = 0;
-                    if (cryptoAmount >= 8000 && cryptoAmount <= 19999) {
-                        commission = 3;
-                    } else if (cryptoAmount >= 20000 && cryptoAmount <= 35999) {
-                        commission = 3.5;
-                    } else if (cryptoAmount >= 36000 && cryptoAmount <= 49999) {
-                        commission = 3.8;
-                    } else if (cryptoAmount >= 50000 && cryptoAmount <= 99999) {
-                        commission = 4.5;
-                    } else if (cryptoAmount >= 100000 && cryptoAmount <= 300000) {
-                        commission = 5.5;
-                    }
-
-                    // Calculate the final USDT value after subtracting commission
-                    const totalUsdt = (cryptoAmount * dogsToUsdtRate) - commission;
-
-                    if (!isNaN(totalUsdt) && totalUsdt > 0) {
-                        const birrValue = totalUsdt * usdtToBirrRate;
-                        document.getElementById('result').innerText = `Price: ${birrValue.toFixed(2)} Birr`;
-                    } else {
-                        document.getElementById('result').innerText = 'Error: Commission exceeds total value.';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching the price:', error);
-                    document.getElementById('result').innerText = 'Error fetching the price. Please try again later.';
-                });
-        });
-    </script>
+    <script src="script.js"></script> <!-- Link to the external JavaScript file -->
 </body>
 </html>
